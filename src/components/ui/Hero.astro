@@ -1,0 +1,68 @@
+---
+// src/components/ui/Hero.astro
+---
+<section class="relative h-[100svh] w-full overflow-hidden bg-stone-950">
+  <div class="absolute inset-0 z-0 overflow-hidden">
+    <img 
+      src="/hero.jpg" 
+      alt="Residência de Alto Padrão por Ruth Medeiros Carvalho" 
+      class="h-full w-full object-cover opacity-70 grayscale-[20%] animate-ken-burns will-change-transform"
+      style="transform-origin: center center;"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/20 to-stone-950/30"></div>
+  </div>
+
+  <div class="relative z-10 flex h-full flex-col items-center justify-center text-center text-white px-4">
+    <h2 class="mb-4 md:mb-6 text-[10px] md:text-sm font-medium tracking-[0.2em] md:tracking-[0.4em] uppercase text-stone-300 animate-fade-in opacity-0" style="animation-delay: 0.2s">
+      Arquitetura & Urbanismo
+    </h2>
+    
+    <h1 class="font-serif text-5xl md:text-8xl lg:text-9xl font-light tracking-tight leading-none animate-fade-in opacity-0" style="animation-delay: 0.4s">
+      Ruth Medeiros<br />
+      <span class="italic font-normal ml-2 lg:ml-8">Carvalho</span>
+    </h1>
+
+    <p class="mt-6 md:mt-8 max-w-xl text-base md:text-xl font-light text-stone-200 leading-relaxed animate-fade-in opacity-0" style="animation-delay: 0.6s">
+      Transformando espaços em experiências sensoriais. 
+      Projetos autorais que unem estética, função e sustentabilidade.
+    </p>
+
+    <a href="#projetos" class="mt-12 md:mt-16 group relative inline-flex items-center gap-2 overflow-hidden pb-1 text-xs md:text-sm uppercase tracking-[0.2em] text-white animate-fade-in opacity-0" style="animation-delay: 0.8s">
+      <span class="relative z-10">Ver Projetos Selecionados</span>
+      <span class="absolute bottom-0 left-0 h-[1px] w-full origin-left scale-x-0 bg-white transition-transform duration-500 ease-out group-hover:scale-x-100"></span>
+    </a>
+  </div>
+  
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce-slow opacity-30 mix-blend-screen">
+    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+  </div>
+</section>
+
+<style>
+  /* Animação de Zoom Lento (Ken Burns) */
+  @keyframes kenBurns {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+  }
+  .animate-ken-burns {
+    animation: kenBurns 20s ease-out infinite alternate;
+  }
+
+  /* Fade In suave para os textos */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); filter: blur(2px); }
+    to { opacity: 1; transform: translateY(0); filter: blur(0); }
+  }
+  .animate-fade-in {
+    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+
+  /* Bounce mais lento e elegante */
+  @keyframes bounceSlow {
+    0%, 100% { transform: translateY(0) translateX(-50%); }
+    50% { transform: translateY(-10px) translateX(-50%); }
+  }
+  .animate-bounce-slow {
+    animation: bounceSlow 3s ease-in-out infinite;
+  }
+</style>

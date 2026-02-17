@@ -1,0 +1,114 @@
+---
+// src/components/ui/Header.astro
+const links = [
+  { name: "Projetos", href: "#projetos" },
+  { name: "Sobre", href: "/sobre" },
+  { name: "Contato", href: "#contato" },
+  { name: "Experiência 3D", href: "/experiencia" },
+];
+---
+
+<header id="main-header" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b border-transparent">
+  <div class="max-w-screen-2xl mx-auto px-6 py-4 flex justify-between items-center">
+    
+    <a href="/" class="text-white font-serif text-lg tracking-widest uppercase z-50 mix-blend-difference">
+      RMC
+    </a>
+
+    <nav class="hidden md:flex gap-8">
+      {links.map((link) => (
+        <a 
+          href={link.href} 
+          class="text-xs uppercase tracking-[0.2em] text-white/80 hover:text-white transition-colors relative group"
+        >
+          {link.name}
+          <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-white transition-all duration-300 group-hover:w-full"></span>
+        </a>
+      ))}
+    </nav>
+
+    <button 
+      id="menu-btn" 
+      class="md:hidden text-white z-50 focus:outline-none mix-blend-difference"
+      aria-label="Abrir Menu"
+    >
+      <div class="w-6 h-[1px] bg-current mb-1.5 transition-all duration-300" id="bar1"></div>
+      <div class="w-6 h-[1px] bg-current transition-all duration-300" id="bar2"></div>
+    </button>
+  </div>
+
+  <div 
+    id="mobile-menu" 
+    class="fixed inset-0 bg-stone-950 flex flex-col items-center justify-center translate-x-full transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]"
+  >
+    <nav class="flex flex-col gap-8 text-center">
+      {links.map((link) => (
+        <a 
+          href={link.href} 
+          class="mobile-link text-3xl font-serif text-white opacity-0 translate-y-4 transition-all duration-500"
+        >
+          {link.name}
+        </a>
+      ))}
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Lógica do Menu Mobile sem Framework (Leve)
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const bar1 = document.getElementById('bar1');
+  const bar2 = document.getElementById('bar2');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+  let isOpen = false;
+
+  menuBtn?.addEventListener('click', () => {
+    isOpen = !isOpen;
+    
+    if (isOpen) {
+      // Abrir Menu
+      mobileMenu?.classList.remove('translate-x-full');
+      document.body.style.overflow = 'hidden'; // Trava o scroll do fundo
+      
+      // Animação do ícone X
+      bar1!.style.transform = 'rotate(45deg) translate(2px, 2px)';
+      bar2!.style.transform = 'rotate(-45deg) translate(2px, -2px)';
+
+      // Animação dos links em cascata
+      mobileLinks.forEach((link, index) => {
+        setTimeout(() => {
+          (link as HTMLElement).style.opacity = '1';
+          (link as HTMLElement).style.transform = 'translateY(0)';
+        }, 100 * index + 300);
+      });
+
+    } else {
+      // Fechar Menu
+      mobileMenu?.classList.add('translate-x-full');
+      document.body.style.overflow = '';
+      
+      // Reset ícone
+      bar1!.style.transform = 'none';
+      bar2!.style.transform = 'none';
+
+      // Reset links
+      mobileLinks.forEach((link) => {
+        (link as HTMLElement).style.opacity = '0';
+        (link as HTMLElement).style.transform = 'translateY(16px)';
+      });
+    }
+  });
+
+  // Efeito Glass no Header ao rolar
+  const header = document.getElementById('main-header');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header?.classList.add('bg-stone-900/80', 'backdrop-blur-md', 'py-2');
+      header?.classList.remove('py-4', 'border-transparent');
+    } else {
+      header?.classList.remove('bg-stone-900/80', 'backdrop-blur-md', 'py-2');
+      header?.classList.add('py-4', 'border-transparent');
+    }
+  });
+</script>

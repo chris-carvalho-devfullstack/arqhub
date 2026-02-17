@@ -1,0 +1,38 @@
+---
+// src/components/seo/Schema.astro
+export interface Props {
+  siteTitle: string;
+  description: string;
+}
+
+const { siteTitle, description } = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ArchitectureFirm", // Tipo específico que o Google ama
+  "name": "Ruth Medeiros Carvalho Arquitetura",
+  "image": "https://seusite.com/logo.png", // Depois você coloca a URL real
+  "url": Astro.site,
+  "telephone": "+5511999999999", // Placeholder
+  "priceRange": "$$$$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Av. Principal, 1000",
+    "addressLocality": "São Paulo", // Altere para a cidade dela
+    "addressRegion": "SP",
+    "postalCode": "01000-000",
+    "addressCountry": "BR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": -23.55052,
+    "longitude": -46.633309
+  },
+  "sameAs": [
+    "https://www.instagram.com/ruthmedeiros_arq",
+    "https://www.linkedin.com/in/ruthmedeiros"
+  ]
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

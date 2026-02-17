@@ -1,5 +1,16 @@
-// @ts-check
+// astro.config.mjs
 import { defineConfig } from 'astro/config';
+import tailwind from '@astrojs/tailwind';
+import react from '@astrojs/react';
+import cloudflare from '@astrojs/cloudflare';
 
-// https://astro.build/config
-export default defineConfig({});
+export default defineConfig({
+  integrations: [tailwind(), react()],
+  adapter: cloudflare({
+    imageService: 'compile', // Resolve o aviso do Sharp
+    platformProxy: {
+      enabled: true, // Habilita a simulação fiel da Cloudflare localmente
+    },
+  }),
+  output: 'server', // Necessário para renderizar dados dinâmicos do Supabase (SSR)
+});
